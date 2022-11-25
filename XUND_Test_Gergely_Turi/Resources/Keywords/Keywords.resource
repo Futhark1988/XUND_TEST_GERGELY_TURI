@@ -13,7 +13,7 @@ ${CURRENT_URL}		${EMPTY}
 *** Keywords ***
 Accept General Terms
 	IF		${CURRENT_URL} == ${CHATBOT}
-		Get Element States    id=xund-iframe >>> xpath=//article[contains(text(),"${I_GENERAL_TERMS_TEXT}")]
+		Get Element States    id=xund-iframe >>> xpath=//article[contains(text(),"${I_GENERAL_TERMS_TEXT}")]    then    bool(visible & enabled)
 		Click		css=#terms_confirm
 	END
 	
@@ -49,7 +49,7 @@ Click on the button
 General Terms are displayed
 	IF		${CURRENT_URL} == ${WEBAPP}
 		The following text is displayed:    ${I_GENERAL_TERMS}
-		Get Element States    id=xund-iframe >>> xpath=//article[contains(text(),"${I_GENERAL_TERMS_TEXT}")]
+		Get Element States    id=xund-iframe >>> xpath=//article[contains(text(),"${I_GENERAL_TERMS_TEXT}")]    then    bool(visible & enabled)
 	END
     
 	
@@ -110,10 +110,10 @@ Move age slider to
 Number of listed symptoms
     [Arguments]    ${NUMBER}
 	IF		${CURRENT_URL} == ${WEBAPP}
-		Get Element States    id=xund-iframe >>> xpath=span[@class="ant-input-wrapper ant-input-group"]//*[count(*)=${NUMBER}]
+		Get Element States    id=xund-iframe >>> xpath=span[@class="ant-input-wrapper ant-input-group"]//*[count(*)=${NUMBER}]    then    bool(visible & enabled)
 	END
 	IF		${CURRENT_URL} == ${CHATBOT}
-		Get Element States    xpath=//*[@id="root"]/div/div/div/div[3]//*[count(*)=${NUMBER}] 
+		Get Element States    xpath=//*[@id="root"]/div/div/div/div[3]//*[count(*)=${NUMBER}]    then    bool(visible & enabled) 
 	END
 
 Open XUND 
@@ -125,17 +125,17 @@ Open XUND
 		New Context    viewport={'width': 720, 'height': 640}
 		IF		${CURRENT_URL}==${WEBAPP}
 			New Page    https://webapp.demo.xund.solutions
-			Wait For Elements State    id=xund-iframe    enabled
+			Wait For Elements State    id=xund-iframe    attached
 		END
 		IF		${CURRENT_URL}==${CHATBOT}
 			
 			New Page    https://chatbot.demo.xund.solutions
-			Wait For Elements State    xpath=//*[@id="root"]/div/div/div/div[3]
+			Wait For Elements State    xpath=//*[@id="root"]/div/div/div/div[3]    attached
 		END
 	ELSE
 		LOG		${APP_NAME} is not supported.
 	END
-	Set Browser Timeout		1m		Global
+	Set Browser Timeout		20s
 	
 Severity level
     [Arguments]    ${PAIN}
@@ -176,7 +176,7 @@ Search via input field for the symptom
 	IF		${CURRENT_URL} == ${WEBAPP}
 		Type Text    id=xund-iframe >>> xpath=//input[@placeholder="Search"]    ${SELECTED}
 		Click    id=xund-iframe >>> xpath=//input[@placeholder="Search"]/..//button
-		Get Element States    id=xund-iframe >>> xpath=span[@class="ant-input-wrapper ant-input-group"]//*[count(*)=${SELECTED}]
+		Get Element States    id=xund-iframe >>> xpath=span[@class="ant-input-wrapper ant-input-group"]//*[count(*)=${SELECTED}]    then    bool(visible & enabled)
 	END
 	IF		${CURRENT_URL} == ${CHATBOT}
 		Type Text    xpath=//*[@id="symptom_select_search_bar"]    ${SELECTED}
@@ -188,7 +188,7 @@ Select body part
 	IF		${CURRENT_URL} == ${WEBAPP}
 		Click    id=xund-iframe >>> xpath=//span[contains(text(),"${SELECTED_BODY_PART}")]
 		${NUMBER_OF_ELEMENTS_IN_LIST}=    Get Length    ${LIST_OF_${SELECTED_BODY_PART}_FRONT}
-		Get Element States    id=xund-iframe >>> xpath=span[@class="ant-input-wrapper ant-input-group"]//*[count(*)=${NUMBER_OF_ELEMENTS_IN_LIST}]
+		Get Element States    id=xund-iframe >>> xpath=span[@class="ant-input-wrapper ant-input-group"]//*[count(*)=${NUMBER_OF_ELEMENTS_IN_LIST}]    then    bool(visible & enabled)
 	END
 	IF		${CURRENT_URL} == ${CHATBOT}
 		Click    css=#body_part_answer_${SELECTED_BODY_PART} > div.searchTitle
@@ -214,10 +214,10 @@ Start page is displayed
 The following text is displayed:
     [Arguments]    ${TEXT}
 	IF		${CURRENT_URL} == ${WEBAPP}
-		Get Element States    id=xund-iframe >>> xpath=//h1[contains(text(),"${TEXT}")]
+		Get Element States    id=xund-iframe >>> xpath=//h1[contains(text(),"${TEXT}")]    then    bool(visible & enabled)
 	END
 	IF		${CURRENT_URL} == ${CHATBOT}
-		Get Element States    xpath=//div[contains(text(),"${TEXT}")]
+		Get Element States    xpath=//div[contains(text(),"${TEXT}")]    then    bool(visible & enabled)
 	END
 
 Type in year
