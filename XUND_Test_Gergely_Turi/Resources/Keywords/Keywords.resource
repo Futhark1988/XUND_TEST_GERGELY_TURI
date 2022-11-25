@@ -135,6 +135,7 @@ Open XUND
 	ELSE
 		LOG		${APP_NAME} is not supported.
 	END
+	Set Browser Timeout		1m		Global
 	
 Severity level
     [Arguments]    ${PAIN}
