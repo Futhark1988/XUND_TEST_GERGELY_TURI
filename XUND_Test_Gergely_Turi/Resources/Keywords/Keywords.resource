@@ -36,6 +36,7 @@ Click on body part
 		Click    id=xund-iframe >>> css=#${SELECTED_BODY_PART}
 	END
 
+
 Click on the button
     [Arguments]    ${BUTTON_CAPTION}
 	IF		${CURRENT_URL} == ${WEBAPP}
@@ -78,6 +79,7 @@ Language is
 		Import Resource    ${EXECDIR}/../Resources/Variables/Symptoms_${LANGUAGES}[${SELECTED_LANGUAGE}].resource
 	END
 
+
 Move age slider to
     [Arguments]    ${AGE}
 	IF		${CURRENT_URL} == ${WEBAPP}
@@ -107,6 +109,7 @@ Move age slider to
 		END
 	END
 	
+	
 Number of listed symptoms
     [Arguments]    ${NUMBER}
 	IF		${CURRENT_URL} == ${WEBAPP}
@@ -115,6 +118,7 @@ Number of listed symptoms
 	IF		${CURRENT_URL} == ${CHATBOT}
 		Get Element States    xpath=//*[@id="root"]/div/div/div/div[3]//*[count(*)=${NUMBER}]    then    bool(visible & enabled) 
 	END
+
 
 Open XUND 
 	[Arguments]		${APP_NAME}
@@ -136,7 +140,8 @@ Open XUND
 		LOG		${APP_NAME} is not supported.
 	END
 	Set Browser Timeout		20s
-	
+
+
 Severity level
     [Arguments]    ${PAIN}
 	IF		${CURRENT_URL} == ${WEBAPP}
@@ -159,6 +164,8 @@ Severity level
 			Log    ${PAIN} is out of bound!    WARN
 		END
 	END
+	
+	
 Search via input field for the body part
     [Arguments]    ${SELECTED}
 	IF		${CURRENT_URL} == ${WEBAPP}
@@ -168,8 +175,7 @@ Search via input field for the body part
 	IF		${CURRENT_URL} == ${CHATBOT}
 		Type Text    xpath=//*[@id="body_part_search_bar"]    ${SELECTED}
 	END
-    
-    
+   
 
 Search via input field for the symptom
     [Arguments]    ${SELECTED}
@@ -211,6 +217,7 @@ Start page is displayed
 		The following text is displayed:    ${Q_SUFFERING_FROM_SPECIFIC_ILLNESS}
 	END
 	
+	
 The following text is displayed:
     [Arguments]    ${TEXT}
 	IF		${CURRENT_URL} == ${WEBAPP}
@@ -219,6 +226,7 @@ The following text is displayed:
 	IF		${CURRENT_URL} == ${CHATBOT}
 		Get Element States    xpath=//div[contains(text(),"${TEXT}")]    then    bool(visible & enabled)
 	END
+
 
 Type in year
     [Arguments]    ${AGE}
