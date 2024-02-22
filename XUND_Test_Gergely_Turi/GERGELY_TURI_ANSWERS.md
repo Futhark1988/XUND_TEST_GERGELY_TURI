@@ -102,7 +102,7 @@ As an exhaustive testing of the applications Webapp and Chatbot is not possible 
 	
 -  Software Interfaces
 	
--  Database logical
+-  Database logic
 	
 -  APIs
 	
